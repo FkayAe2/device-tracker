@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BPE Device Tracker - Beginner's Guide</title>
+<style>
+  @page {
+    size: A4;
+    margin: 15mm 15mm 15mm 15mm;
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1f2937;
+    line-height: 1.5;
+    font-size: 13px;
+    background-color: #ffffff;
+  }
+  .header {
+    border-bottom: 3px solid #16a34a;
+    padding-bottom: 12px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .title-area h1 {
+    font-size: 22px;
+    color: #14532d;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .title-area p {
+    font-size: 12px;
+    color: #4b5563;
+    margin-top: 2px;
+  }
+  .badge {
+    background-color: #dcfce7;
+    color: #15803d;
+    font-weight: 700;
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    border: 1px solid #86efac;
+  }
+  h2 {
+    font-size: 16px;
+    color: #166534;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    border-left: 4px solid #22c55e;
+    padding-left: 8px;
+  }
+  p {
+    margin-bottom: 8px;
+  }
+  .card-grid {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .card {
+    flex: 1;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .card.admin {
+    border-top: 4px solid #16a34a;
+  }
+  .card.staff {
+    border-top: 4px solid #3b82f6;
+  }
+  .card h3 {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  .key-value {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    display: inline-block;
+    margin: 2px 0;
+  }
+  .step-box {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-radius: 0 8px 8px 0;
+  }
+  .step-box h4 {
+    font-size: 13px;
+    color: #14532d;
+    margin-bottom: 3px;
+  }
+  .arch-diagram {
+    background: #1e293b;
+    color: #f8fafc;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 11px;
+    line-height: 1.4;
+    margin: 10px 0 14px 0;
+  }
+  .arch-diagram span.green { color: #4ade80; }
+  .arch-diagram span.cyan  { color: #38bdf8; }
+  .arch-diagram span.yellow{ color: #facc15; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 12px;
+  }
+  th, td {
+    border: 1px solid #e5e7eb;
+    padding: 7px 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f3f4f6;
+    color: #374151;
+    font-weight: 600;
+  }
+  .footer {
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 11px;
+    color: #6b7280;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title-area">
+    <h1>BPE Office Device Tracker</h1>
+    <p>Bureau of Public Enterprises, Abuja — ICT Unit Project Guide</p>
+  </div>
+  <div class="badge">Official Guide</div>
+</div>
+
+<h2>🔑 1. The Secret Keys (Login Credentials)</h2>
+<p>You have two club keys depending on who is logging in:</p>
+<div class="card-grid">
+  <div class="card admin">
+    <h3 style="color:#166534;">👑 Super-Boss Key (Admin)</h3>
+    <p><strong>Username:</strong> <span class="key-value">admin</span></p>
+    <p><strong>Password:</strong> <span class="key-value">Admin@123</span></p>
+    <p style="font-size:11px; color:#4b5563; margin-top:4px;">
+      <strong>Superpower:</strong> Can see everything, add toys, edit info, and throw away (delete) old gadgets with confirmation.
+    </p>
+  </div>
+
+  <div class="card staff">
+    <h3 style="color:#1d4ed8;">🛠️ Helper Key (Staff)</h3>
+    <p><strong>Username:</strong> <span class="key-value">staff</span></p>
+    <p><strong>Password:</strong> <span class="key-value">Staff@123</span></p>
+    <p style="font-size:11px; color:#4b5563; margin-top:4px;">
+      <strong>Superpower:</strong> Can view all items, add new gadgets, and move them between rooms. <em>Cannot delete!</em>
+    </p>
+  </div>
+</div>
+
+<h2>🎮 2. How to Use the App (Step-by-Step)</h2>
+
+<div class="step-box">
+  <h4>1. Open the Clubhouse Door (Login)</h4>
+  <p>Go to <strong>http://localhost:5173</strong>. Enter your username and password, or click the quick demo buttons to auto-fill them!</p>
+</div>
+
+<div class="step-box">
+  <h4>2. Look at the Scoreboard (Dashboard)</h4>
+  <p>See big counters for all 20 devices. Check out the <strong>"Action Required"</strong> list for gadgets that have a boo-boo (Faulty or In Repair) so they can be fixed fast.</p>
+</div>
+
+<div class="step-box">
+  <h4>3. Search the Big Toy Chest (Devices Directory)</h4>
+  <p>Click <strong>Devices</strong> in the sidebar. Type any name, room, or sticker tag into the search bar. Click <strong>Export CSV</strong> to save a clean spreadsheet file!</p>
+</div>
+
+<div class="step-box">
+  <h4>4. Add a Brand New Toy (+ Add Device)</h4>
+  <p>Fill out the gadget name, brand, model, and give it an <strong>Asset Tag</strong> (like <code>BPE-ICT-001</code>). Asset tags are unique name badges — no two gadgets can have the same tag!</p>
+</div>
+
+<div class="step-box">
+  <h4>5. Move or Fix a Device & The Little Detective (History Log)</h4>
+  <p>If someone moves a laptop from Room 101 to Room 205, click <strong>Edit</strong> and update the room. The system automatically records: <em>Who moved it, what was changed, and what time it happened!</em></p>
+</div>
+
+<h2>🧱 3. How Was It Coded? (The 3 Best Friends)</h2>
+<p>The code is split into three friendly helpers working together:</p>
+
+<div class="arch-diagram">
+  <span class="green">[ 1. Frontend: React + Vite ]</span>  --> The pretty Face & Buttons you see on screen<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ (Sends your clicks with a secure JWT badge)<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+  <span class="cyan">[ 2. Backend: Express.js (Node) ]</span>  --> The Postman who enforces security rules<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ (Writes and reads rows safely)<br>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+  <span class="yellow">[ 3. Database: SQLite (devices.db) ]</span> --> The Big Memory Notebook that never forgets
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Tool Used</th>
+      <th>What It Does In Plain Words</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Frontend</strong></td>
+      <td>React + Vite</td>
+      <td>Draws the cards, charts, and forms without reloading the browser.</td>
+    </tr>
+    <tr>
+      <td><strong>Backend</strong></td>
+      <td>Node.js + Express</td>
+      <td>Checks who is logged in, validates inputs, and guards sensitive actions like deleting.</td>
+    </tr>
+    <tr>
+      <td><strong>Database</strong></td>
+      <td>better-sqlite3</td>
+      <td>Stores your devices, login passwords (scrambled with bcrypt), and history logs in a local file.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>📍 4. Project File Location</h2>
+<p>All project code, files, and database are saved on your computer at:</p>
+<p class="key-value" style="font-size:13px; font-weight:bold; color:#14532d; padding:8px 12px; display:block;">
+  C:\Users\USER\.gemini\antigravity\scratch\device-tracker
+</p>
+
+<div class="footer">
+  <span>Bureau of Public Enterprises (BPE) Abuja — ICT Unit</span>
+  <span>BPE Device Tracker v1.0.0</span>
+</div>
+
+</body>
+</html>
+
