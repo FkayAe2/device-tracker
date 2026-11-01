@@ -5,10 +5,12 @@
   "private": true,
   "scripts": {
     "setup": "cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
     "dev": "concurrently --names \"API,UI\" --prefix-colors \"green,blue\" \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && node server.js",
     "dev:frontend": "cd frontend && npm run dev",
-    "start": "npm run dev"
+    "start": "npm run dev",
+    "start:prod": "cd backend && node server.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

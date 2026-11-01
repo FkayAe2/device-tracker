@@ -1,197 +1,194 @@
-# BPE Office Device Tracking System
-> Developed for the ICT Unit of the **Bureau of Public Enterprises (BPE), Abuja**.
+# BPE ICT Office Device Tracking System
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18.0.0-brightgreen.svg)](https://nodejs.org/)
+[![React Version](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://reactjs.org/)
+[![Database](https://img.shields.io/badge/database-SQLite%203-blue.svg)](https://www.sqlite.org/)
 
-The BPE Office Device Tracking System is a modern, responsive web application designed for ICT officers to catalog, locate, update, monitor, and audit office devices (computers, laptops, printers, scanners, photocopiers, network appliances, and more) across all departments.
+A full-stack, enterprise-grade inventory management and asset auditing system built for the Information & Communications Technology (ICT) Unit of the **Bureau of Public Enterprises (BPE), Abuja, Nigeria**.
+
+The system enables ICT administrators and officers to monitor, locate, audit, and manage government office hardware—including computers, laptops, printers, scanners, photocopiers, and core network appliances—across all six administrative departments with real-time audit trail tracking.
 
 ---
 
-## 1. Quick Start & URLs
+## 📌 Problem Statement & Objectives
 
-### Requirements
-- **Node.js** v18+ (tested on Node v20)
-- **npm** v9+
+### The Problem
+Public enterprise departments often manage hundreds of high-value hardware assets across multiple floors, office suites, and staff assignments. Without a centralized, secure tracking platform, organizations suffer from:
+- Lost or displaced hardware during department transfers.
+- Inaccurate inventory logs and lack of accountability regarding *who* moved an asset and *when*.
+- Delays in reporting and resolving faulty equipment (e.g. broken drum units, offline switches).
+- Data loss from untracked asset retirements and disposals.
 
-### Commands to Run
-Open your terminal in the `device-tracker` folder and run:
+### Project Objectives
+1. **Centralized Asset Registry:** Provide a single source of truth for all office IT hardware with 16 comprehensive data attributes per device.
+2. **Immutable Audit Trail:** Automatically capture every status change, physical relocation, and assignee transfer in a granular history log.
+3. **Role-Based Access Control (RBAC):** Strictly enforce administrative privileges on both client and server to prevent unauthorized asset deletions.
+4. **Visual Analytics & Early Warnings:** Offer a high-level operational dashboard with categorized metrics and an urgent "Needs Attention" queue.
+5. **Portability & Interoperability:** Allow live multi-criteria filtering and instant CSV export for reporting and auditing.
 
+---
+
+## 🚀 Live Demo & Screenshots
+
+- **Frontend Application:** `http://localhost:5173` (or your production domain)
+- **API Health Check:** `http://localhost:5000/api/health`
+
+### Screenshots Overview
+| Dashboard & Analytics | Device Management Directory |
+|:---:|:---:|
+| *Interactive KPI cards, department breakdowns, and attention queues* | *Live search, multi-field filters, sorting, and CSV export* |
+
+| Audit Trail & Device Detail | Responsive Mobile Layout |
+|:---:|:---:|
+| *Field-by-field chronological modification logs* | *Fully adaptive mobile sidebar and table responsiveness* |
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technology | Purpose |
+|---|---|---|
+| **Frontend Framework** | React 18 (Vite) | Fast, responsive Single Page Application (SPA) architecture |
+| **Routing** | React Router DOM v6 | Declarative client-side routing with protected route guards |
+| **UI & Styling** | Vanilla CSS Design System | Custom, lightweight green & white theme (`#14532d` / `#16a34a`) |
+| **Data Visualizations** | Recharts v2 | Responsive SVG bar charts and status distribution analytics |
+| **Notifications** | React Hot Toast | Toast notifications for user feedback and error messages |
+| **HTTP Client** | Axios | Configured with automatic JWT injection and 401 interceptor |
+| **Backend Framework** | Node.js / Express.js | Modular RESTful API architecture |
+| **Authentication** | JWT (`jsonwebtoken`) & `bcryptjs` | Stateless token authorization with salted password hashing |
+| **Database** | SQLite via `better-sqlite3` | High-performance, zero-latency synchronous embedded database |
+| **Python Tooling** | Python 3.12 + ReportLab | Programmatic PDF documentation and formal user manual generator |
+
+---
+
+## 🔐 Seed Accounts & Access Control
+
+Upon first startup, the database automatically initializes and creates two role-segregated accounts:
+
+| Role | Username | Password | Access Rights |
+|---|---|---|---|
+| **Administrator** | `admin` | `Admin@123` | Full access: View, Add, Edit, CSV Export, and **Delete** devices. |
+| **ICT Staff** | `staff` | `Staff@123` | Operational access: View, Add, Edit, CSV Export. **Deletion is blocked on both UI and server.** |
+
+*(The login screen also features 1-click helper buttons to quickly test either role).*
+
+---
+
+## ⚡ Quick Start & Local Setup
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (version 18.0.0 or higher)
+- [npm](https://www.npmjs.com/) (version 9.0.0 or higher)
+- [Python 3](https://www.python.org/) (optional, only needed for regenerating PDF documentation)
+
+### 1. Clone the Repository
 ```bash
-# 1. Install all dependencies (root, backend, and frontend)
-npm run setup
+git clone https://github.com/FkayAe2/device-tracker.git
+cd device-tracker
+```
 
-# 2. Start both the backend API (port 5000) and frontend UI (port 5173) together
+### 2. Install Dependencies
+```bash
+npm run setup
+```
+*(This command installs root dependencies like `concurrently`, followed by `backend` and `frontend` dependencies).*
+
+### 3. Configure Environment Variables
+Inside the `backend/` directory, copy the example file:
+```bash
+cp backend/.env.example backend/.env
+```
+Default parameters in `.env`:
+```env
+PORT=5000
+NODE_ENV=development
+JWT_SECRET=bpe_ict_device_tracker_super_secret_2024
+```
+
+### 4. Start the Development Servers
+From the root project directory, run:
+```bash
 npm run dev
 ```
-
-### Application URLs
-- **Web Interface:** [http://localhost:5173](http://localhost:5173)
-- **Backend API:** [http://localhost:5000/api](http://localhost:5000/api)
-- **API Health Check:** [http://localhost:5000/api/health](http://localhost:5000/api/health)
+- Frontend UI opens at: **`http://localhost:5173`**
+- Backend API listens at: **`http://localhost:5000`**
 
 ---
 
-## 2. Seed Login Credentials
+## 📦 Project Directory Structure
 
-Two built-in user accounts are automatically created with secure bcrypt-hashed passwords upon first launch:
-
-| Role | Username | Password | Permissions |
-|---|---|---|---|
-| **Administrator** | `admin` | `Admin@123` | Full access (View, Create, Edit, Delete, CSV Export) |
-| **ICT Staff** | `staff` | `Staff@123` | Operational access (View, Create, Edit, CSV Export — *Delete blocked*) |
-
----
-
-## 3. Step-by-Step Tour of the Application
-
-### 1. Login Page (`/login`)
-- Enter your username and password.
-- Features quick "Click to fill Admin" and "Click to fill Staff" demo helper buttons.
-- On login, a JWT token is generated and saved in local storage.
-
-### 2. Dashboard (`/dashboard`)
-- **Key Metrics Overview:** Total device count, devices in use, devices available, and devices needing attention.
-- **Visual Analytics:**
-  - Devices by Department (Bar Chart)
-  - Devices by Status (Pie / Status breakdown)
-  - Devices by Type (Computer, Laptop, Printer, Network, etc.)
-- **Action Required List:** Quick table highlighting devices marked as `Faulty` or `Under Repair` for urgent maintenance.
-- **Recent Activity Feed:** Live timeline showing the last 10 modifications across the system.
-
-### 3. Device Directory (`/devices`)
-- **Live Search:** Search instantly by device name, asset tag (e.g. `BPE-ICT-001`), serial number, or assignee.
-- **Multi-Filter Bar:** Filter devices by Category/Type, Department, Physical Condition, and Status.
-- **Sorting & Pagination:** Click on table headers to sort ascending or descending. Paginated at 20 devices per page.
-- **CSV Export:** Click "Export CSV" to download the current filtered dataset with all columns formatted into `bpe_devices.csv`.
-
-### 4. Adding a Device (`/devices/new`)
-- Form fields include: Device Name, Unique Asset Tag, Device Type, Brand, Model, Serial Number, Department, Office Location, Assignee, Acquisition Date, Condition, Status, and Notes.
-- Asset tags are strictly validated: duplicate asset tags are caught on both client and server (returns HTTP 409).
-- Creating a device automatically appends a `CREATE` event to the audit trail.
-
-### 5. Editing, Moving & Retiring a Device (`/devices/:id/edit`)
-- Update any field (e.g. moving a laptop from one room to another, changing assignee, or setting status to `In Repair` or `Retired`).
-- Every changed field is individually logged in the device's history with the previous value, new value, timestamp, and the user who modified it.
-
-### 6. Device Detail & Audit Trail (`/devices/:id`)
-- Displays all specifications and metadata for a device.
-- Shows a chronological **History & Audit Log** answering:
-  - *Who* changed the record?
-  - *When* was it changed?
-  - *What* was changed (e.g., location changed from `Office 201` to `Office 305`)?
-- Delete button is accessible only to `admin` users (with a confirmation modal). Staff accounts receive an alert if an unauthorized delete request is made.
-
----
-
-## 4. Architecture & Request Flow
-
-### How the Parts Connect
-```
-[ Browser / React App ]  (Port 5173)
-         │
-         │  1. User clicks "Save Device"
-         │  2. Axios attaches Authorization: Bearer <JWT>
-         ▼
-[ Vite Dev Proxy ] (/api/* -> http://localhost:5000)
-         │
-         ▼
-[ Express Server ] (server.js, Port 5000)
-         │
-         ├── middleware/auth.js: Validates JWT signature & extracts user role
-         │
-         ├── routes/devices.js: Validates fields & checks unique asset tag
-         │
-         ▼
-[ SQLite Database ] (better-sqlite3, data/devices.db)
-         │
-         ├── 1. INSERT INTO devices (...)
-         └── 2. INSERT INTO history (device_id, action, field_name, ...)
-         │
-         ▼
-[ Express Server ]
-         │
-         │  Returns HTTP 201 Created + JSON payload
-         ▼
-[ React Component ]
-         │
-         Displays success toast & updates UI state
-```
-
-### Main Files & Directory Structure
-```
+```text
 device-tracker/
-├── package.json               # Root scripts (setup, dev using concurrently)
-├── README.md                  # Complete documentation and beginner guide
+├── package.json                   # Root package with concurrently & setup scripts
+├── README.md                      # Primary project overview and instructions
+├── SYSTEM_ARCHITECTURE.md         # Deep-dive architecture and request flows
+├── DATABASE_DESIGN.md             # Entity relationships, schema, and indexes
+├── TECHNICAL_DOCUMENTATION.md     # Code-level guide for student defense
+├── TESTING_REPORT.md              # Automated test suite and validation results
+├── BPE_Device_Tracker_Guide.pdf   # Printable PDF quick reference guide
+├── create_pdf.py                  # Python ReportLab script generating the PDF
 ├── backend/
-│   ├── .env                   # Environment config (PORT=5000, JWT_SECRET)
-│   ├── db.js                  # Database connection, tables creation, 20 seed records
-│   ├── server.js              # Express app entry point & route registration
+│   ├── .env                       # Local environment variables (git-ignored)
+│   ├── .env.example               # Template environment configuration
+│   ├── package.json               # Backend dependencies (express, sqlite, etc.)
+│   ├── server.js                  # Express application entry & CORS config
+│   ├── db.js                      # Database connection, migrations & 20 seed items
+│   ├── data/
+│   │   └── devices.db             # Local SQLite database file (git-ignored)
 │   ├── middleware/
-│   │   └── auth.js            # JWT verification & requireAdmin role guard
-│   ├── routes/
-│   │   ├── auth.js            # POST /api/auth/login endpoint
-│   │   └── devices.js         # REST endpoints: CRUD, search, filter, CSV, stats
-│   └── data/
-│       └── devices.db         # Persistent SQLite database file
+│   │   └── auth.js                # JWT verification and requireAdmin role gate
+│   └── routes/
+│       ├── auth.js                # Authentication endpoint (POST /api/auth/login)
+│       └── devices.js             # Device CRUD, search, filter, CSV, & stats
 └── frontend/
-    ├── vite.config.js         # Vite configuration with proxy to port 5000
-    ├── index.html             # HTML entry point
+    ├── package.json               # Frontend dependencies (react, recharts, etc.)
+    ├── vite.config.js             # Vite configuration with proxy to port 5000
+    ├── index.html                 # HTML application template
     └── src/
-        ├── api.js             # Axios instance with JWT interceptor & 401 handling
-        ├── App.jsx            # React Router paths & protected route guard
-        ├── index.css          # Green & White BPE professional design system
+        ├── api.js                 # Axios instance with JWT interceptor & 401 handling
+        ├── App.jsx                # Route hierarchy and protected route barrier
+        ├── index.css              # Custom green-and-white enterprise CSS styling
+        ├── main.jsx               # React DOM initialization
         ├── context/
-        │   └── AuthContext.jsx# Authentication context (user, token, login, logout)
+        │   └── AuthContext.jsx    # User session state and login/logout handlers
         ├── components/
-        │   └── Layout.jsx     # Navigation sidebar, topbar, active route indicator
+        │   └── Layout.jsx         # Sidebar navigation, top bar, and role badge
         └── pages/
-            ├── LoginPage.jsx       # Login view with demo credentials
-            ├── DashboardPage.jsx   # Charts, stats counters, needs-attention list
-            ├── DevicesPage.jsx     # Table view with search, filter, CSV export
-            ├── DeviceDetailPage.jsx# Device info view + full audit history
-            └── DeviceFormPage.jsx  # Create and edit device form with validation
+            ├── LoginPage.jsx       # Authentication page with demo credentials
+            ├── DashboardPage.jsx   # Metrics, Recharts visualization, attention list
+            ├── DevicesPage.jsx     # Device inventory table, search, filters, CSV
+            ├── DeviceDetailPage.jsx# Full hardware specifications & audit timeline
+            └── DeviceFormPage.jsx  # Create and update hardware records
 ```
 
 ---
 
-## 5. Database & Reset Instructions
+## 🌐 Public Deployment Guide (Railway / Render / VPS)
 
-All data is stored locally in an embedded SQLite database file located at:
-```
-backend/data/devices.db
-```
+### Option A: Full-Stack Single-Container Deployment (Recommended)
+Because `backend/server.js` automatically serves the built frontend files (`frontend/dist`) when they exist, you can deploy the entire repository as a single service on **Railway** or **Render**:
 
-### To Reset Data to Default Seeds:
-1. Stop the application (`Ctrl + C` in the terminal).
-2. Delete the `backend/data/devices.db` file (and any `-wal` / `-shm` temporary files).
-3. Restart the server (`npm run dev`).
-4. `db.js` will automatically re-create the tables and re-populate the 20 initial devices and user accounts.
+1. **Build Step:**
+   ```bash
+   npm run setup && npm run build
+   ```
+2. **Start Command:**
+   ```bash
+   npm run start:prod
+   ```
+3. **Environment Variables to set in host dashboard:**
+   - `NODE_ENV=production`
+   - `PORT=5000` (or host assigned `$PORT`)
+   - `JWT_SECRET=<generate_a_random_32_byte_string>`
+   - `CLIENT_URL=https://your-custom-domain.com`
 
----
-
-## 6. Automated Tests & Verification Results
-
-The automated test suite evaluated all core requirements against the live backend:
-- ✅ **API Health Check (`GET /api/health`):** Returned HTTP 200 `status: "ok"`.
-- ✅ **Authentication:**
-  - Invalid credentials rejected with HTTP 401.
-  - Admin login successful with role `admin`.
-  - Staff login successful with role `staff`.
-- ✅ **Dashboard Analytics:** Returned aggregate counts by status, condition, type, and department, plus devices needing attention.
-- ✅ **Search & Filter:** Live substring queries and multi-filter parameters returned accurate results.
-- ✅ **CSV Export:** Returned HTTP 200 with proper `text/csv` headers and escaped commas.
-- ✅ **Device Creation & Validation:**
-  - Created device with generated ID.
-  - Duplicate asset tag attempt was rejected with HTTP 409 and descriptive error message.
-- ✅ **Audit Logging:** Modifications recorded old vs. new values and user attribution in the `history` table.
-- ✅ **Role-Based Access Control (RBAC):**
-  - Staff account attempting `DELETE /api/devices/:id` rejected with HTTP 403 Forbidden.
-  - Admin account successfully deleted the device with HTTP 200.
-- ✅ **Production Build:** `npm run build` bundled all modules with zero compilation errors.
+### Option B: Connecting a Custom Domain
+1. In your deployment provider (e.g., Railway, Render, or Vercel), navigate to **Settings > Custom Domains**.
+2. Enter your custom domain (e.g. `tracker.yourdomain.com`).
+3. Add the provided `CNAME` or `A` DNS records in your DNS management dashboard (e.g., Cloudflare, Namecheap, GoDaddy).
+4. SSL certificates are provisioned automatically via Let's Encrypt.
 
 ---
 
-## 7. Future Improvement Ideas
-- **QR Code / Barcode Generation:** Print QR asset tags directly from the device detail page for mobile scanning.
-- **Automated Email / Push Alerts:** Notify the ICT maintenance team when a device condition is marked `Faulty`.
-- **Maintenance Cost Tracking:** Add a maintenance expense ledger to each device for budgeting.
-- **Bulk CSV Import:** Allow uploading CSV files to import multiple devices simultaneously.
-
+## 📄 License
+This project is licensed under the MIT License - see the LICENSE file for details.
